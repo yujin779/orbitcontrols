@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.min.js"></script>
     <script>
-      import { OrbitControls } from "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/controls/OrbitControls.js";
+      import * as THREE from "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/controls/OrbitControls.js";
       // ページの読み込みを待つ
       window.addEventListener("load", init);
 
@@ -27,7 +27,7 @@
         camera.position.set(0, 0, 1000);
 
         // カメラコントローラーを作成
-        const controls = new OrbitControls(camera);
+        const controls = new THREE.OrbitControls(camera);
 
         // 形状とマテリアルからメッシュを作成します
         const mesh = new THREE.Mesh(
