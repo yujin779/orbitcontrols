@@ -1,54 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>three.js bare example</title>
-    <style>
-      html,
-      body,
-      #root {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-      }
-      div {
-        width: 200px;
-        height: 20px;
-        background: #000;
-        border: 2px solid #000;
-      }
-      div > div {
-        width: 200px;
-        height: 20px;
-        background: red;
-        border: none;
-      }
-      #score {
-        position: absolute;
-        top: -4%;
-        right: 5%;
-        font-family: "arial black";
-        font-size: 3vw;
-        color: #fff;
-      }
-      /* #mainText {
-        position: absolute;
-        top: 40%;
-        right: 40%;
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.min.js"></script>
+    <script>
+      import { OrbitControls } from "https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/js/controls/OrbitControls.js";
+      // ページの読み込みを待つ
+      window.addEventListener("load", init);
 
-        font-family: "arial black";
-        font-size: 3vw;
-        color: #fff;
-      } */
-    </style>
+      function init() {
+        // サイズを指定
+        const width = 960;
+        const height = 540;
+
+        // レンダラーを作成
+        const renderer = new THREE.WebGLRenderer({
+          canvas: document.querySelector("#myCanvas")
+        });
+        renderer.setSize(width, height);
+
+        // シーンを作成
+        const scene = new THREE.Scene();
+
+        // カメラを作成
+        const camera = new THREE.PerspectiveCamera(45, width / height);
+        // カメラの初期座標を設定
+        camera.position.set(0, 0, 1000);
+
+        // カメラコントローラーを作成
+        const controls = new OrbitControls(camera);
+
+        // 形状とマテリアルからメッシュを作成します
+        const mesh = new THREE.Mesh(
+          new THREE.BoxGeometry(300, 300, 300),
+          new THREE.MeshNormalMaterial()
+        );
+        scene.add(mesh);
+
+        tick();
+
+        // 毎フレーム時に実行されるループイベントです
+        function tick() {
+          // レンダリング
+          renderer.render(scene, camera);
+          requestAnimationFrame(tick);
+        }
+      }
+    </script>
   </head>
   <body>
-    <canvas id="app"></canvas>
-    <p id="score">score 0</p>
-    <script src="./index.js"></script>
+    <canvas id="myCanvas"></canvas>
   </body>
 </html>
